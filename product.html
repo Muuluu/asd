@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="./data.js"></script>
+    <title>Ulun.mn</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="head">
+        <p>Ulun.mn</p>
+        <input type="text" class="search" placeholder="Үнэ...">
+      </div>
+      <div class="body">
+        <div class="product-container">
+          <img src="./image.png" class="image" />
+          <div style="width: 56px"></div>
+          <div class="description">
+            <p style="font-size: 40px">Хөвсгөр бууз</p>
+            <p style="font-size: 32px">Үнэ - 1800₮</p>
+            <p></p>
+            <p style="font-size: 24px">CU - Zaisan Hill</p>
+            <p></p>
+            <p></p>
+            <div>
+              <p>Үнэлгээ - 5 <span style="color: rgba(0, 0, 0, 0.4);">(21)</span></p>
+              <p>⭐⭐⭐⭐⭐</p>
+          </div>
+          </div>
+        </div>
+        <div style="height: 48px;"></div>
+        <div>
+          <p style="font-size: 18px;">Байршил - Khan-Uul District, 11th khoroo, Zaisan Hill, 1 давхар</p>
+          <div style="height: 16px"></div>
+          <div id="map"></div>
+        </div>
+        
+      </div>
+    </div>
+
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap&v=weekly"
+      defer
+    ></script>
+    <style>
+        #map {
+            border-radius: 16px;
+            box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.4);
+  height: 300px; /* The height is 400 pixels */
+  width: 500px; /* The width is the width of the web page */
+}
+    </style>
+    <script>
+      function initMap() {
+        // The location of Uluru
+        const uluru = { lat: 47.8857624, lng: 106.915607 };
+        // The map, centered at Uluru
+        const map = new google.maps.Map(document.getElementById("map"), {
+          zoom: 15,
+          center: uluru,
+        });
+        // The marker, positioned at Uluru
+        const marker = new google.maps.Marker({
+          position: uluru,
+          map: map,
+        });
+      }
+
+      window.initMap = initMap;
+    </script>
+  </body>
+</html>
