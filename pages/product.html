@@ -5,6 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../styles/product.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+    integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+    crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+     integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+     crossorigin=""></script>
     <script src="./data.js"></script>
     <title>Ulun.mn</title>
   </head>
@@ -12,10 +18,15 @@
     <div class="container">
       <div class="head">
         <div class="head-container">
+          <a href="../index.html">
 
-          <h1>Ulun.mn</h1>
+            <h1>Ulun.mn</h1>
+          </a>
           <input type="text" class="search" placeholder="Үнэ...">
-          <div class="user"></div>
+          <a href="./login.html">
+
+            <div class="user"></div>
+          </a>
         </div>
       </div>
       <div class="body">
@@ -23,15 +34,16 @@
           <img src="../images/buuz.png" class="image" />
           <div style="width: 56px"></div>
           <div class="description">
-            <p style="font-size: 40px">Хөвсгөр бууз</p>
-            <p style="font-size: 32px">Үнэ - 1800₮</p>
-            <p></p>
-            <p style="font-size: 24px">CU - Zaisan Hill</p>
+            <p style="font-size: 32px">Хөвсгөр бууз</p>
+            <p style="font-size: 24px; font-weight: 700; color: #d22501;">1800₮</p>
+            <p style="font-size: 20px; opacity: 70%;">CU - Zaisan Hill</p>
             <p></p>
             <p></p>
             <div>
               <p>Үнэлгээ - 5 <span style="color: rgba(0, 0, 0, 0.4);">(21)</span></p>
-              <p>⭐⭐⭐⭐⭐</p>
+              <div>
+                <i data-star="3.4"></i>
+              </div>
           </div>
           </div>
         </div>
@@ -45,37 +57,30 @@
       </div>
     </div>
 
-    <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap&v=weekly"
-      defer
-    ></script>
+
     <style>
-        #map {
-            border-radius: 16px;
-            box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.4);
-  height: 300px; /* The height is 400 pixels */
-  width: 500px; /* The width is the width of the web page */
-}
+      #map { 
+        height: 400px;
+        width: 700px;
+        border-width: 2px;
+      }
     </style>
     <script>
-      function initMap() {
-    // Set the location of the marker
-    var location = {lat: 47.8857624, lng: 106.915607};
-    
-    // Initialize the map
-    var map = new google.maps.Map(document.getElementById("map"), {
-      center: location,
-      zoom: 15
-    });
-    
-    // Add a marker to the location
-    var marker = new google.maps.Marker({
-      position: location,
-      map: map,
-      title: "Marker "
-    });
-  }
-      window.initMap = initMap;
+      var coordinates = [47.8857624, 106.915607]
+      var place =  "Khan-Uul District, 11th khoroo, Zaisan Hill, 1 давхар"
+      
+      var map = L.map('map').setView(coordinates, 16);
+
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          maxZoom: 19,
+          attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+
+        var marker = L.marker(coordinates).addTo(map);
+
+        marker.bindPopup(place).openPopup();
     </script>
+
+
   </body>
 </html>
