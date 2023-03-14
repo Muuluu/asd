@@ -40,7 +40,7 @@
             <p></p>
             <p></p>
             <div>
-              <p>Үнэлгээ - 5 <span style="color: rgba(0, 0, 0, 0.4);">(21)</span></p>
+              <p>Үнэлгээ - 3.4 <span style="color: rgba(0, 0, 0, 0.4);">(21)</span></p>
               <div>
                 <i data-star="3.4"></i>
               </div>
@@ -79,6 +79,17 @@
         var marker = L.marker(coordinates).addTo(map);
 
         marker.bindPopup(place).openPopup();
+
+        var popup = L.popup();
+
+      function onMapClick(e) {
+          popup
+              .setLatLng(e.latlng)
+              .setContent("You clicked the map at " + e.latlng.toString())
+              .openOn(map);
+              console.log(e.latlng)
+      }
+      map.on('click', onMapClick);
     </script>
 
 
