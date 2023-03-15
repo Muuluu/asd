@@ -8,10 +8,8 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
     integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
     crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
-     integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
-     crossorigin=""></script>
-    <script src="./data.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+    <script src="../functions/search.js"></script>
     <title>Ulun.mn</title>
   </head>
   <body>
@@ -22,11 +20,38 @@
 
             <h1 >Ulun.mn</h1>
           </a>
-          <input type="text" class="search" placeholder="Үнэ...">
-          <a href="./login.html">
 
-            <div class="user"></div>
-          </a>
+          <div>
+            <form style="display: flex; flex-direction: row;" id="search-form">
+              <select name="search-type" id="search-type" class="search-dropdown">
+                <option value="price" selected>Price Range</option>
+                <option value="name">Name</option>
+              </select>
+              <div style="width: 16px"></div>
+              <input type="text" placeholder="Search by name" id="name-search" class="search-name">
+              <div style="display: flex; flex-direction: row;">
+                <input type="number" placeholder="Min price" id="min-price" class="search-price">
+                <div style="width: 28px; display: flex; justify-content: center; align-items: center; font-weight: 900;">-</div>
+                <input type="number" placeholder="Max price" id="max-price" class="search-price">
+              </div>
+              
+              <button type="submit" class="search-button" onclick="doSearch()">Search</button>
+            </form>
+          
+          </div>
+          <!-- <input type="text" class="search" placeholder="Үнэ..."> -->
+          <div style="display: flex; flex-direction: row;">
+
+            <a href="./login.html">
+              <div class="user"></div>
+            </a>
+            <div style="width: 16px;"></div>
+            <a href="./createProduct.html" style="text-decoration: none;">
+              <div class="createProduct">
+                <p>+</p>
+              </div>
+            </a>
+          </div>
         </div>
       </div>
       <div class="body">
@@ -66,6 +91,47 @@
       }
     </style>
     <script>
+const searchForm = document.querySelector("#search-form")
+searchForm.addEventListener('submit', (event) => {
+  event.preventDefault(); // prevent default form submission behavior
+  // your form submission code here
+});
+      // Get the dropdown and search bar elements
+const searchTypeDropdown = document.getElementById('search-type');
+const nameSearch = document.getElementById('name-search');
+const minPrice = document.getElementById('min-price');
+const maxPrice = document.getElementById('max-price');
+
+window.onload = function() {
+  nameSearch.style.display = 'none';
+    minPrice.style.display = 'block';
+    maxPrice.style.display = 'block';
+
+}
+
+searchTypeDropdown.addEventListener('change', (event) => {
+  if (event.target.value === 'name') {
+    nameSearch.style.display = 'block';
+    minPrice.style.display = 'none';
+    maxPrice.style.display = 'none';
+  } else if (event.target.value === 'price') {
+    nameSearch.style.display = 'none';
+    minPrice.style.display = 'block';
+    maxPrice.style.display = 'block';
+  }
+});
+
+function doSearch() {
+  const minPrice = document.getElementById('min-price').value;
+  const maxPrice = document.getElementById('max-price').value;
+
+  searchByPrice(minPrice, maxPrice)
+
+}
+
+
+    </script>
+    <script>
       var coordinates = [47.8857624, 106.915607]
       var place =  "Khan-Uul District, 11th khoroo, Zaisan Hill, 1 давхар"
       
@@ -81,15 +147,6 @@
         marker.bindPopup(place).openPopup();
 
         var popup = L.popup();
-
-      function onMapClick(e) {
-          popup
-              .setLatLng(e.latlng)
-              .setContent("You clicked the map at " + e.latlng.toString())
-              .openOn(map);
-              console.log(e.latlng)
-      }
-      map.on('click', onMapClick);
     </script>
 
 
